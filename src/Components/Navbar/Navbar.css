@@ -1,0 +1,8 @@
+.link{
+    color: black;
+    text-decoration: none;
+}
+.link-seleccionado{
+    color: red;
+    text-decoration: solid underline 1px;
+}
