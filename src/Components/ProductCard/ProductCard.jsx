@@ -1,7 +1,8 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
+import './ProductCard.css'
 
-const ProductCard = ({img, title, final_price, real_price, discount, is_admin, id,  key}) => {
+const ProductCard = ({img, name, price, id}) => {
     //Key siempre valdra undefined
 
 
@@ -22,16 +23,19 @@ const ProductCard = ({img, title, final_price, real_price, discount, is_admin, i
     }
 
     return (
-        <div>
+
+        <div className="product-card">
             <img src={img} />
-            <h3>{title}</h3>
+            <h3>{name}</h3>
             <div>
-                <span>${real_price}</span>
-                <span>{discount}% OFF</span>
+                <span className="price">${price}</span>
             </div>
-            <span>${final_price}</span>
-            {boton}
-            <Link to={`/product/${id}`}>Ver detalle</Link>
+            <br></br>
+            
+            <div className="actions">
+                {boton}
+                <Link to={`/product/${id}`}>Ver detalle</Link>
+            </div>
         </div>
     )
 }

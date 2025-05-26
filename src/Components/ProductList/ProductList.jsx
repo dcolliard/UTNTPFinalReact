@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ProductCard from '../ProductCard/ProductCard'
 import { getProducts } from '../../services/products'
-
+import './ProductList.css'
 
 
 const ProductList = () => {
@@ -37,25 +37,6 @@ const ProductList = () => {
         []
     )
 
-    const producto1 = products[0]
-    let isAdmin = true
-    const div_props = {
-        className: isAdmin ? 'caja-administrador' : 'caja',
-        id: 'caja-especial'
-    }
-
-    /* Don react nos pide que cada elemento de la lista a renderizar tenga una prop llamada key */
-    /* const componentes = [
-        <ProductCard {...products[0]} key={products[0].id}/>,
-        <ProductCard {...products[1]} key={products[1].id} />,
-        <ProductCard {...products[2]} key={products[2].id}/>
-    ]
-     */
-
-
-
-
-
 
     //EL objetivo seria crear el array de componentes de forma automatica
     const componentes = products.map(
@@ -63,8 +44,6 @@ const ProductList = () => {
             return <ProductCard
                 {...product}
                 key={product.id}
-                title={product.title}
-                is_admin={isAdmin}
             />
         }
     )
@@ -82,24 +61,10 @@ const ProductList = () => {
     }
 
     return (
-        <div {...div_props}>
-            {/* <ProductCard 
-                img={producto1.img} 
-                title={producto1.title}
-                final_price={producto1.final_price}
-                real_price={producto1.real_price}
-                discount={producto1.discount}
-            /> */}
-            {/* <ProductCard {...producto1}/>
-            <ProductCard {...products[1]}/>
-            <ProductCard {...products[2]}/> */}
-
+        <div className='product-list'>
             {content}
-
         </div>
     )
 }
-/* Principio DRY: Dont repeat yourself */
-
 
 export default ProductList

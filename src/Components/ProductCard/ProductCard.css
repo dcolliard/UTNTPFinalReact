@@ -1,0 +1,33 @@
+.product-card {
+    background-color: #f3f3f3;
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin: 0.25em;
+ }
+
+ .product-card img {
+    max-height: 15em;
+    display: block;
+    margin: 0 auto 10px;
+ }
+
+ .product-card h3{
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+ }
+
+ .product-card .price {
+    font-size: 1.5em;
+    color: rgb(6, 106, 6);
+    margin: 10px 0;
+ }
+
+ .product-card .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+ }

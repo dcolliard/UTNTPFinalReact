@@ -1,0 +1,36 @@
+.product-detail-screen {
+    display: flex;
+    margin: 20px auto;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .product-detail-screen  .imagen {
+    width: 60%;
+  }
+
+  .product-detail-screen .imagen img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .product-detail-screen  .texto .description {
+   text-align: justify;
+  }
+
+  .product-detail-screen  .texto {
+    flex: 2;
+  }
+
+  .product-detail-screen .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+ }
+
+ .product-detail-screen .price {
+    font-size: 1.5em;
+    color: rgb(6, 106, 6);
+    margin: 10px 0;
+ }
