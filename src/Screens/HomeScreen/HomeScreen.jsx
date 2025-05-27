@@ -1,26 +1,13 @@
-/*import React from 'react'
-import Navbar from '../../Components/Navbar/Navbar'
-import ProductList from '../../Components/ProductList/ProductList'
-
-const HomeScreen = () => {
-  return (
-    <div>
-        <Navbar/>
-        <h1>Catalogo de productos:</h1>
-        <ProductList/>
-    </div>
-  )
-}
-
-export default HomeScreen*/
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Navbar/Navbar";
 import ProductList from "../../Components/ProductList/ProductList";
 import { useAuth } from "../../context/AuthContext";
 import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "../../config/firebase";
+import { db } from "../../config/firebase";
+import ICONS from "../../Components/Icons/Icons";
+
+
 
 const HomeScreen = () => {
   const { user } = useAuth();
@@ -32,7 +19,6 @@ const HomeScreen = () => {
       if (user) {
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
-        console.log(docSnap.data()); // Para depuración
         if (docSnap.exists()) {
           setRol(docSnap.data().rol);
         }
@@ -48,23 +34,28 @@ const HomeScreen = () => {
   return (
     <div>
       <Navbar />
-      <br/>
-      <h1>Catalogo de productos:</h1>
+      <br />
+      <br />
+      <br />
+      <h1 style={{ textAlign: 'center' }}>Bienvenido al catálogo de bicicletas</h1>
 
-      {/* Mostrar botón solo si rol es Admin */}
+
+      {/* Contenedor con flex para botón a la derecha */}
       {rol === "admin" && (
-        <button onClick={handleAgregarProducto} style={{ marginBottom: 20 }}>
-          Agregar producto
-        </button>
+        <div class="container" style={{ display: "flex", justifyContent: "flex-end", marginBottom: 20 }}>
+          <button
+            className="btn btn-success d-flex align-items-center"
+            onClick={handleAgregarProducto}
+          >
+            <ICONS.PLUS style={{ marginRight: 5 }}  />
+            Agregar producto
+          </button>
+        </div>
       )}
 
       <ProductList />
-  
     </div>
   );
 };
 
 export default HomeScreen;
-
-
-

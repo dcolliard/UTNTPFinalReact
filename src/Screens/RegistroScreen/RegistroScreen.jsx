@@ -12,7 +12,8 @@ const RegisterScreen = () => {
 
   const navigate = useNavigate();
 
-  const handleRegister = async () => {
+  const handleRegister = async (e) => {
+    e.preventDefault();
     setError(null);
     try {
       const cred = await createUserWithEmailAndPassword(auth, email, password);
@@ -22,6 +23,7 @@ const RegisterScreen = () => {
         email,
         name,
         creadoEn: new Date(),
+        rol: "Cliente" // opcional, por si querés diferenciar
       });
 
       navigate("/");
@@ -31,42 +33,61 @@ const RegisterScreen = () => {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: "auto", padding: 20 }}>
-      <h2>Registrarse</h2>
+    <div className="container d-flex flex-column justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
+      <div className="card shadow p-4" style={{ width: "100%", maxWidth: "400px" }}>
+        <h2 className="text-center mb-4">Crear cuenta</h2>
 
-      <label>Nombre</label>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setNombre(e.target.value)}
-        placeholder="Tu nombre"
-      />
+        {error && <div className="alert alert-danger">{error}</div>}
 
-      <label>Email</label>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="correo@ejemplo.com"
-      />
+        <form onSubmit={handleRegister}>
+          <div className="mb-3">
+            <label className="form-label">Nombre completo</label>
+            <input
+              type="text"
+              className="form-control"
+              value={name}
+              onChange={(e) => setNombre(e.target.value)}
+              placeholder="Tu nombre"
+              required
+            />
+          </div>
 
-      <label>Contraseña</label>
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="********"
-      />
+          <div className="mb-3">
+            <label className="form-label">Correo electrónico</label>
+            <input
+              type="email"
+              className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="correo@ejemplo.com"
+              required
+            />
+          </div>
 
-      <button onClick={handleRegister} style={{ marginTop: 10 }}>
-        Crear cuenta
-      </button>
+          <div className="mb-3">
+            <label className="form-label">Contraseña</label>
+            <input
+              type="password"
+              className="form-control"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="********"
+              required
+            />
+          </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+          <div className="d-grid gap-2">
+            <button type="submit" className="btn btn-success">Registrarse</button>
+          </div>
+        </form>
 
-      <p style={{ marginTop: 20 }}>
-        ¿Ya tenés cuenta? <Link to="/login">Iniciá sesión aquí</Link>
-      </p>
+        <div className="text-center mt-3">
+          <p className="mb-0">
+            ¿Ya tenés cuenta?{" "}
+            <Link to="/login" className="text-decoration-none">Iniciá sesión aquí</Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

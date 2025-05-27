@@ -1,156 +1,178 @@
-import { addDoc, collection } from 'firebase/firestore'
-import React, { useState } from 'react'
-import {db} from '../../config/firebase'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../../config/firebase';
 import Navbar from "../../Components/Navbar/Navbar";
 
 const CreateProductScreen = () => {
-    //Cada vez que cambie el valor de un input voy a actualizar mi estado de formulario
-    let initial_state_form = {
-        title: '',
-        price: 0,
-        description: '',
-        img: null
+  const initial_state_form = {
+    title: '',
+    price: 0,
+    description: '',
+    img: null
+  };
+
+  const [form_state, setFormState] = useState(initial_state_form);
+  const [loading, setLoading] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const navigate = useNavigate();
+
+  const handleChange = (event) => {
+    const field = event.target.name;
+
+    if (field === 'img') {
+      setFormState((prev) => ({
+        ...prev,
+        img: event.target.files[0]
+      }));
+    } else {
+      setFormState((prev) => ({
+        ...prev,
+        [field]: event.target.value
+      }));
     }
-    const [form_state, setFormState] = useState(initial_state_form)
-    const [loading, setLoading] = useState(false)
+  };
 
-    const handleChange = (event) => {
-        let field = event.target.name
-        let new_value = event.target.value
-        
-        if (field === 'img') {
-            setFormState(
-                (prev_state) => {
-                    return {
-                        ...prev_state,
-                        'img': event.target.files[0] //LLamamos al primer valor de la lista de adjuntados
-                    }
-                }
-            )
-        }
-        else {
-            setFormState(
-                (prev_state) => {
-                    return {
-                        ...prev_state,
-                        [field]: new_value
-                    }
-                }
-            )
-        }
+  const uploadImgToImgBB = async (img_file) => {
+    const API_KEY_IMGBB = 'b960424e13b28821ebb0ec82403b50ea';
+    const form_data = new FormData();
+    form_data.append('image', img_file);
 
+    const response = await fetch(
+      `https://api.imgbb.com/1/upload?key=${API_KEY_IMGBB}`,
+      {
+        method: 'POST',
+        body: form_data
+      }
+    );
+
+    const data = await response.json();
+    return data.data.url;
+  };
+
+  const handleToastClose = () => {
+    setShowToast(false);
+    navigate('/');
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+
+    try {
+      const url_img = await uploadImgToImgBB(form_state.img);
+      const collection_ref = collection(db, 'products');
+
+      await addDoc(collection_ref, {
+        title: form_state.title,
+        price: form_state.price,
+        description: form_state.description,
+        img: url_img
+      });
+
+      setFormState(initial_state_form);
+      setShowToast(true);
+    } catch (error) {
+      console.error("Error al crear el producto:", error);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    const uploadImgToImgBB = async (img_file) => {
+  return (
+    <div>
+      <Navbar />
+      <div className="container mt-5" style={{ maxWidth: 600 }}>
+        <h2 className="text-center mb-4">Crear nuevo producto</h2>
 
-        let API_KEY_IMGBB = 'b960424e13b28821ebb0ec82403b50ea'
-        //Debemos enviar: form-data
-        //Paso 1: Creamos un formulario
-        const form_data = new FormData()
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="title" className="form-label">Título</label>
+            <input
+              type="text"
+              className="form-control"
+              name="title"
+              id="title"
+              placeholder="Escribe el título..."
+              value={form_state.title}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        //Paso 2: Adjuntamos el archivo al formulario
-        //Imgbb necesita el campo image para poder subir la imagen
-        form_data.append('image', img_file)
+          <div className="mb-3">
+            <label htmlFor="price" className="form-label">Precio</label>
+            <input
+              type="number"
+              className="form-control"
+              name="price"
+              id="price"
+              placeholder="Escribe el precio..."
+              min={0}
+              value={form_state.price}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        //Paso 3: Emitir una consulta HTTP con metodo POST a la API de https://api.imgbb.com/
-        const response = await fetch(
-            `https://api.imgbb.com/1/upload?key=${API_KEY_IMGBB}`,
-            {
-                method: 'POST',
-                //El body es la carga util de la consulta, los datos que envias en si
-                body: form_data
-            }
-        )
-        const data = await response.json()
-        console.log('Respuesta de IMGBB:', data)
-        return data.data.url
-    }
+          <div className="mb-3">
+            <label htmlFor="description" className="form-label">Descripción</label>
+            <textarea
+              className="form-control"
+              id="description"
+              name="description"
+              rows="5"
+              placeholder="Escribe la descripción..."
+              value={form_state.description}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-    //QUE es una API KEY? las api keys son claves que nos permiten identificarnos como usuarios de x servicio
+          <div className="mb-3">
+            <label htmlFor="img" className="form-label">Selecciona una imagen</label>
+            <input
+              type="file"
+              className="form-control"
+              id="img"
+              name="img"
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-    const handleSubmit = async (event) => {
-    
-        event.preventDefault()
-        setLoading(true)
+          <button
+            type="submit"
+            className="btn btn-success w-100"
+            disabled={loading}
+          >
+            {loading ? "Creando producto..." : "Crear producto"}
+          </button>
+        </form>
+      </div>
 
-        //Subir la imagen a la DB de imagenes (imgbb)
-        //Le pasamos la imagen guardada en el form_state
-        const url_img = await uploadImgToImgBB(form_state.img)
+{showToast && (
+  <div
+    className="toast show position-fixed top-50 start-50 translate-middle bg-secondary text-white"
+    role="alert"
+    style={{ zIndex: 9999, cursor: 'pointer', minWidth: '300px' }}
+    onClick={handleToastClose}
+  >
+    <div className="d-flex">
+      <div className="toast-body">
+        ✅ Producto creado exitosamente
+      </div>
+      <button
+        type="button"
+        className="btn-close btn-close-white me-2 m-auto"
+        onClick={handleToastClose}
+      ></button>
+    </div>
+  </div>
+)}
 
-        //Seleccionamos nuestra coleccion
-        const collection_ref = collection(db, 'products')
-        //Agregar un documento a la colleccion seleccionada
-        await addDoc(
-            collection_ref,
-            {
-                title: form_state.title,
-                price: form_state.price,
-                description: form_state.description,
-                img: url_img
-            }
-        )
+    </div>
+  );
+};
 
-        //Reiniciar nuestro formulario
-        setFormState(initial_state_form)
-        setLoading(false)
-    }
-
-    console.log(form_state)
-    return (
-        <div>
-            <Navbar />
-            <br/>
-            <h1>Crea tu producto</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="title">Titulo:</label>
-                    <input
-                        type="text"
-                        name='title'
-                        id="title"
-                        placeholder='Escribe el titulo...'
-                        value={form_state.title}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="price">Precio:</label>
-                    <input
-                        type="number"
-                        name='price'
-                        id="price"
-                        placeholder='Escribe el precio...'
-                        min={0}
-                        value={form_state.price}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="description">Descripción:</label>
-                    <textarea id="description" required name="description" rows="7" cols="50" 
-                    placeholder="Escribe la descripción.." onChange={handleChange} value={form_state.description}></textarea>
-                </div>
-                <div>
-                    <label htmlFor="img">Seleciona una imagen:</label>
-                    <input
-                        type='file'
-                        id='img'
-                        name='img'
-                        onChange={handleChange}
-                    />
-                </div>
-                <button
-                    type='submit'
-                    disabled={loading}
-                >
-                    {loading ? "Creando producto..." : 'Crear producto'}
-
-                </button>
-            </form>
-        </div>
-    )
-}
-
-export default CreateProductScreen
+export default CreateProductScreen;

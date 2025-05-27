@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import './ProductCard.css'
+import ICONS from "../Icons/Icons"
 
 const ProductCard = ({img, title, price, id}) => {
     //Key siempre valdra undefined
@@ -16,16 +17,24 @@ const ProductCard = ({img, title, price, id}) => {
     let boton 
 
     if(isBought){
-        boton = <button disabled>Comprado</button>
+        boton =<button disabled className="btn btn-secondary d-flex align-items-center gap-2"
+                  onClick={handleClickBuyButton}>
+                  <ICONS.CART style={{ marginRight: 5 }} />
+                  Comprado
+                  </button>
     }
     else{
-        boton = <button onClick={handleClickBuyButton}>Comprar</button>
+        boton =<button className="btn btn-warning d-flex align-items-center gap-2"
+                  onClick={handleClickBuyButton}>
+                  <ICONS.CART style={{ marginRight: 5 }} />
+                  Comprar ahora 
+                  </button>
     }
 
     return (
 
         <div className="product-card">
-            <img src={img} />
+            <img src={img} className="img-fluid" style={{ objectFit: "contain" }} />
             <h3>{title}</h3>
             <div>
                 <span className="price">${price}</span>
