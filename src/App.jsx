@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import HomeScreen from './Screens/HomeScreen/HomeScreen'
-/* import ContactScreen from './Screens/ContactScreen/ContactScreen' */
 import ProductDetailScreen from './Screens/ProductDetailScreen/ProductDetailScreen'
-import ContactScreen from './Screens/ContactScreen/ContactScreenControlada'
 import CreateProductScreen from './Screens/CreateProductScreen/CreateProductScreen'
 
 
@@ -23,10 +21,6 @@ const App = () => {
         <Route
           path='/'
           element={<HomeScreen />}
-        />
-        <Route
-          path={`/contact`}
-          element={<ContactScreen />}
         />
         <Route
           path='/product/:product_id'
