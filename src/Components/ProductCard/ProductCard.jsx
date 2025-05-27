@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import './ProductCard.css'
 
-const ProductCard = ({img, name, price, id}) => {
+const ProductCard = ({img, title, price, id}) => {
     //Key siempre valdra undefined
 
 
@@ -26,7 +26,7 @@ const ProductCard = ({img, name, price, id}) => {
 
         <div className="product-card">
             <img src={img} />
-            <h3>{name}</h3>
+            <h3>{title}</h3>
             <div>
                 <span className="price">${price}</span>
             </div>

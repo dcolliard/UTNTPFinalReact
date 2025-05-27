@@ -1,13 +1,14 @@
 import { addDoc, collection } from 'firebase/firestore'
 import React, { useState } from 'react'
-import database from '../../config/firebase'
+import {db} from '../../config/firebase'
+import Navbar from "../../Components/Navbar/Navbar";
 
 const CreateProductScreen = () => {
     //Cada vez que cambie el valor de un input voy a actualizar mi estado de formulario
     let initial_state_form = {
         title: '',
         price: 0,
-        discount: 0,
+        description: '',
         img: null
     }
     const [form_state, setFormState] = useState(initial_state_form)
@@ -42,8 +43,7 @@ const CreateProductScreen = () => {
 
     const uploadImgToImgBB = async (img_file) => {
 
-        let API_KEY_IMGBB = 'd0bc686385a0fc689b60774c9807d88d'
-        //Debemos enviar un formulario a la API: https://api.imgbb.com/
+        let API_KEY_IMGBB = 'b960424e13b28821ebb0ec82403b50ea'
         //Debemos enviar: form-data
         //Paso 1: Creamos un formulario
         const form_data = new FormData()
@@ -78,14 +78,14 @@ const CreateProductScreen = () => {
         const url_img = await uploadImgToImgBB(form_state.img)
 
         //Seleccionamos nuestra coleccion
-        const collection_ref = collection(database, 'products')
+        const collection_ref = collection(db, 'products')
         //Agregar un documento a la colleccion seleccionada
         await addDoc(
             collection_ref,
             {
                 title: form_state.title,
                 price: form_state.price,
-                discount: form_state.discount,
+                description: form_state.description,
                 img: url_img
             }
         )
@@ -98,6 +98,8 @@ const CreateProductScreen = () => {
     console.log(form_state)
     return (
         <div>
+            <Navbar />
+            <br/>
             <h1>Crea tu producto</h1>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -126,18 +128,9 @@ const CreateProductScreen = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="discount">Descuento (opcional):</label>
-                    <input
-                        type="number"
-                        name='discount'
-                        id="discount"
-                        placeholder='Escribe el descuento...'
-                        max={99}
-                        min={0}
-                        value={form_state.discount}
-                        onChange={handleChange}
-                        required
-                    />
+                    <label htmlFor="description">Descripción:</label>
+                    <textarea id="description" required name="description" rows="7" cols="50" 
+                    placeholder="Escribe la descripción.." onChange={handleChange} value={form_state.description}></textarea>
                 </div>
                 <div>
                     <label htmlFor="img">Seleciona una imagen:</label>

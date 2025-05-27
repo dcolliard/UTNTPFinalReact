@@ -1,10 +1,10 @@
 import { collection, getDocs } from 'firebase/firestore'
-import database from '../config/firebase'
+import {db} from '../config/firebase'
 
 export const getProducts = async () => {
     try {
         //Paso 1 buscar la colleccion en nuestra DB
-        const products_collection_reference = collection(database, 'products')
+        const products_collection_reference = collection(db, 'products')
 
         //Paso 2 obtener la lista de documentos
         const result = await getDocs(products_collection_reference)

@@ -12,21 +12,14 @@ const ProductList = () => {
     //Use effect sirve para controlar la recarga de una funcion (o efecto)
 
     const getProductsList = async () => {
-        setLoading(true)
-        //El setTimeout no es necesario
-        setTimeout(
-            async () => {
-                const products_list_response = await getProducts()
-                if (products_list_response) {
-                    setProducts(products_list_response)
-                }
-                else {
-                    setError('Error al obtener productos')
-                }
-                setLoading(false)
-            },
-            2000
-        )
+        const products_list_response = await getProducts()
+        if (products_list_response) {
+            setProducts(products_list_response)
+        }
+        else {
+            setError('Error al obtener productos')
+        }
+        setLoading(false)
 
     }
 

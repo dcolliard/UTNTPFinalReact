@@ -1,5 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+
 const firebaseConfig = {
   apiKey: "AIzaSyCgxicJVBlV7hnxK6SYrco18I3c--2czgU",
   authDomain: "utnreacttpfinal.firebaseapp.com",
@@ -16,6 +18,7 @@ const app = initializeApp(firebaseConfig);
 //FIRESTORE nos permite tener una base de datos
 
 //Obtener la constante database de nuestra app (basicamente un objeto de acceso a la base de datos de nuestra aplicacion)
-const database = getFirestore(app)
+export const auth = getAuth(app);           // Para autenticación
+export const db = getFirestore(app);        // Para base de datos Firestore
 
-export default database
+export default app;
