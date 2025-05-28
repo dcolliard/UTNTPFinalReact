@@ -1,6 +1,6 @@
 # 🛍️ TP Final - React
 
-Este repositorio corresponde al **Trabajo Práctico Final** del curso de **React** en la **Diplomatura en Professional Full-Stack Developer** del Centro de e-Learning **UTN FRBA**.
+Repositorio correspondete al **Trabajo Práctico Final** del curso de **React** en la **Diplomatura en Professional Full-Stack Developer** del Centro de e-Learning **UTN FRBA**.
 
 - 👨‍🎓 Alumno: **David Colliard Schneider**  
 - 📧 Contacto: [carloscolliard@gmail.com](mailto:carloscolliard@gmail.com)
