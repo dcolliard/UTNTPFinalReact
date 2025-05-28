@@ -6,7 +6,7 @@ import { db } from "../config/firebase";
 
 const AdminRoute = ({ children }) => {
   const { user } = useAuth();
-  const [isAdmin, setIsAdmin] = useState(null); // null = cargando
+  const [isAdmin, setIsAdmin] = useState(null); 
 
   useEffect(() => {
     const checkAdmin = async () => {
@@ -26,16 +26,13 @@ const AdminRoute = ({ children }) => {
   }, [user]);
 
   if (isAdmin === null) {
-    // mientras chequea, podés mostrar un loader o nada
     return <div>Cargando...</div>;
   }
 
   if (!user || !isAdmin) {
-    // no autenticado o no admin -> redirige a login o a home (según quieras)
     return <Navigate to="/login" replace />;
   }
 
-  // es admin, renderiza el contenido protegido
   return children;
 };
 

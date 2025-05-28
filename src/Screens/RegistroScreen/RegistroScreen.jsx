@@ -23,7 +23,7 @@ const RegisterScreen = () => {
         email,
         name,
         creadoEn: new Date(),
-        rol: "Cliente" // opcional, por si querés diferenciar
+        rol: "Cliente"
       });
 
       navigate("/");

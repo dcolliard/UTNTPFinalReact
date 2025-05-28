@@ -38,9 +38,6 @@ const HomeScreen = () => {
       <br />
       <br />
       <h1 style={{ textAlign: 'center' }}>Bienvenido al catálogo de bicicletas</h1>
-
-
-      {/* Contenedor con flex para botón a la derecha */}
       {rol === "admin" && (
         <div class="container" style={{ display: "flex", justifyContent: "flex-end", marginBottom: 20 }}>
           <button

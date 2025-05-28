@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../ProductCard/ProductCard';
 import { getProducts } from '../../services/products';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Asegúrate de importar Bootstrap CSS
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);

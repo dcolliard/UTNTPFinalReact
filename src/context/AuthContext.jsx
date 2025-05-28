@@ -1,4 +1,3 @@
-// context/AuthContext.jsx
 import {
   createContext,
   useContext,
@@ -16,8 +15,8 @@ import { doc, getDoc } from "firebase/firestore";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);           // Usuario Firebase
-  const [userProfile, setUserProfile] = useState(null); // Datos Firestore
+  const [user, setUser] = useState(null);           
+  const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const login = async (email, password) => {

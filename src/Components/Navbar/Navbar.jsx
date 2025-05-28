@@ -18,7 +18,7 @@ const Navbar = () => {
         if (docSnap.exists()) {
           setNombre(docSnap.data().name);
         } else {
-          setNombre(""); // o user.email o "Usuario"
+          setNombre("");
         }
       } else {
         setNombre("");

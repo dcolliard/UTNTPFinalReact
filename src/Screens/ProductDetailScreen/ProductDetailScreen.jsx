@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProductById } from '../../services/products';
 import Navbar from '../../Components/Navbar/Navbar';
-import './ProductDetailScreen.css';
 import ICONS from "../../Components/Icons/Icons";
 
 const ProductDetailScreen = () => {

@@ -1,12 +1,9 @@
 import React, { useState } from "react"
 import { Link } from "react-router-dom"
-import './ProductCard.css'
 import ICONS from "../Icons/Icons"
+import './ProductCard.css'
 
 const ProductCard = ({img, title, price, id}) => {
-    //Key siempre valdra undefined
-
-
     const [isBought, setIsBought] = useState(false)
 
     const handleClickBuyButton = () =>{
