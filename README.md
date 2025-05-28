@@ -1,12 +1,50 @@
-# React + Vite
+# 🛍️ TP Final - React
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este repositorio corresponde al **Trabajo Práctico Final** del curso de **React** en la **Diplomatura en Professional Full-Stack Developer** del Centro de e-Learning **UTN FRBA**.
 
-Currently, two official plugins are available:
+- 👨‍🎓 Alumno: **David Colliard Schneider**  
+- 📧 Contacto: [carloscolliard@gmail.com](mailto:carloscolliard@gmail.com)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🌐 Demo en línea
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Prueba la aplicación desplegada en Vercel:
+
+👉 **[https://utntp-final-react.vercel.app/](https://utntp-final-react.vercel.app/)**
+
+---
+
+## 🚀 Tecnologías principales
+
+- ⚛️ [React 19](https://react.dev/)
+- ⚡ [Vite 6](https://vitejs.dev/)
+- 🎨 [Bootstrap 5](https://getbootstrap.com/)
+- 🔥 [Firebase](https://firebase.google.com/)
+- 🔗 [React Router DOM 7](https://reactrouter.com/)
+
+---
+
+## 🔐 Credenciales de administrador
+
+| Usuario                | Contraseña |
+|------------------------|------------|
+| `admin@mail.com`       | `123456`   |
+
+---
+
+## 📚 Guía de funcionalidades
+
+### 👤 Usuario no logueado
+- 🔑 Iniciar sesión
+- 📝 Registrarse
+
+### 🙋 Usuario logueado
+- 🛒 Visualizar productos
+- 🔍 Ver detalles de producto
+- 💳 Comprar productos
+- 🚪 Cerrar sesión
+
+### 🛠️ Usuario administrador
+- Accede a todas las funciones anteriores
+- ➕ Crear productos
